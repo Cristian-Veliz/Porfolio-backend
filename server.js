@@ -15,12 +15,14 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,
-  secure: true,
+  secure: false,
+  requireTLS: true, // Agrega esta línea para usar STARTTLS
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
+    pass: process.env.EMAIL_PASS,
+  },
 });
+
 
 // Ruta para manejar el envío de correos desde el formulario
 app.post('/enviar-correo', (req, res) => {
@@ -46,5 +48,5 @@ app.post('/enviar-correo', (req, res) => {
 
 // Inicia el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en puerto http://localhost:${PORT}`);
 });
